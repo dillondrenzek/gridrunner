@@ -1,0 +1,31 @@
+/* UTILITY */
+
+	*,
+	*:before,
+	*:after{
+		box-sizing:border-box;
+			-webkit-box-sizing:border-box;
+		margin: 0;
+	}
+	html{
+		background: #252423;
+	}
+
+	body{
+		font-size: 16px;
+		padding: 0;
+		margin: 0;
+	}
+	html, body {
+			height: 100%;
+			overflow: hidden;
+	}
+
+
+/* HTML ELEMENTS */
+
+	canvas{}
+
+	/*temporary link style*/
+	a 		{color: #333;}
+	a:hover	{ color:#777;}

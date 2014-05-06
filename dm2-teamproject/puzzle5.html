@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Puzzle Five</title>
+    <link rel="icon" type="image/ico" href="icon.png"/>
+
+		<!-- jQuery Link -->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+		<!-- External JS -->
+		<script src="./functions.js"></script>
+
+		<!-- CSS Styling -->
+		<link rel="stylesheet" type="text/css" href="./puzzle-page.css">
+
+		<script>
+            
+			$(document).ready(function(){
+                // var old = new Array();
+
+                $(document).keydown(function(event){
+				    event.preventDefault();
+
+				    // left
+				    if(event.which == 37){
+				    	player.move(-1,0);
+				        // old[0] = player.x, old[1] = player.y;
+				        // player.move((player.x/SPACE) - 1, player.y/SPACE);
+				        // collision(player, old);
+				    }
+				    // up
+				    else if (event.which == 38){
+				    	player.move(0,-1);
+				        // old[0] = player.x, old[1] = player.y;
+				        // player.move(player.x/SPACE, (player.y/SPACE)-1);
+				        // collision(player, old);
+				    }
+				    // right
+				    else if(event.which == 39){
+				    	player.move(1,0);
+				        // old[0] = player.x, old[1] = player.y;
+				        // player.move((player.x/SPACE)+1, player.y/SPACE);
+				        // collision(player, old);
+				    }
+				    // down
+				    else if(event.which == 40){
+				    	player.move(0,1);
+				        // old[0] = player.x, old[1] = player.y;
+				        // player.move(player.x/SPACE, (player.y/SPACE)+1);
+				        // collision(player, old);
+				    }
+                    if(event.which == 13){
+                        location.reload();   
+                    }
+				    return false;
+				});
+
+                //VARIABLES
+                	
+
+					var canvas = document.getElementById("canvas");
+					var ctx = canvas.getContext('2d');
+					var player = new Player (0,0,10, ctx, "6");
+
+
+				// 	--------------- PUZZLE 1 - 5x5 ----------------
+					var s = "start";
+					var x = "finish";
+					// untouched also = 0
+					var u = "untouched";
+					var t = "touched";
+					var w = "wall";
+
+					puzzleArray = [	[s,w,0,0,0,0,0,0,w,0,0],
+									[0,w,0,0,w,0,0,0,w,0,0],
+									[0,0,0,0,0,0,w,0,0,0,0],
+									[w,w,0,w,0,0,0,0,0,0,0],
+									[0,0,0,0,0,x,0,0,0,0,0],
+									[0,0,0,0,w,0,0,0,w,0,0],
+									[0,0,0,0,w,w,0,0,w,0,w],
+									[0,0,w,w,0,0,0,0,0,0,0],
+									[0,0,0,0,0,0,0,0,0,0,0],
+									[0,0,0,0,0,0,0,0,0,0,0],
+									[0,0,w,w,0,w,0,0,0,0,0],
+									[0,0,0,0,0,w,0,0,w,0,0]];
+
+				// 	-----------------------------------------------
+                /*[0,0,0,0,0,0,0,0,w,s,0],
+									[0,0,0,0,0,0,0,0,w,w,0],
+									[0,0,0,0,0,0,w,0,0,0,0],
+									[w,w,0,0,w,0,0,0,w,0,0],
+									[0,0,0,0,0,0,0,0,0,0,0],
+									[0,0,0,0,w,x,0,0,w,0,0],
+									[0,0,0,0,w,0,0,0,w,0,w],
+									[0,0,0,0,0,0,0,0,0,0,0],
+									[0,0,w,0,0,0,0,0,0,0,0],
+									[0,0,0,0,0,0,0,0,0,0,0],
+									[0,0,0,w,0,w,0,0,0,0,0],
+									[0,0,0,0,0,w,0,0,w,0,0]];*/
+
+					// generate Tile objects, insert into array
+					tileArray = generateTiles(puzzleArray, ctx);
+
+					// draw grid of Tiles given array of tiles
+					drawGrid(tileArray, ctx);
+
+					// draw player
+                    player.draw();
+
+
+			});
+		</script>
+	</head>
+
+	<body>
+		<canvas id="canvas" width="440" height="480"></canvas>
+		
+	</body>
+</html>
