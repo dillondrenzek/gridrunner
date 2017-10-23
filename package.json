@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/dillondrenzek/gridrunner/issues"
   },
-  "homepage": "https://github.com/dillondrenzek/gridrunner#readme"
+  "homepage": "https://github.com/dillondrenzek/gridrunner#readme",
+  "devDependencies": {
+    "jasmine": "2.8.0"
+  }
 }
