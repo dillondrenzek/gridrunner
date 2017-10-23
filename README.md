@@ -5,6 +5,8 @@ Grid Runner is a minimalist and challenging puzzle game created by Dillon Drenze
 
 
 
+
+
 ## Rules
 
 ### Setup
@@ -25,3 +27,10 @@ Grid Runner is a minimalist and challenging puzzle game created by Dillon Drenze
 1. `Player` may move from a `Cell` to any bordering `Cell` (Up, Down, Left, or Right) that isn't a `Wall` or `Touched`
 1. `Player` "touches" a `Cell` by moving to it from another cell
   - the `Cell` then becomes `Touched`
+
+
+
+
+
+## Node Version
+Everything written for version 2 was written with Node version `7.9.0`. This isn't to say that it can't be run on a lower version, I just haven't verified that it works on other versions :)
