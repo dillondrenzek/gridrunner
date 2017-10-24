@@ -17,6 +17,38 @@ class Matrix {
     this._matrix = matrix;
   }
 
+  // @return { number }
+  get width() {
+    return this._matrix[0].length;
+  }
+
+  // @return { number }
+  get height() {
+    return this._matrix.length;
+  }
+
+  // @param { number } x
+  // @param { number } y
+  // @return { T }
+  get(x, y) {
+    return this._matrix[y][x];
+  }
+
+  // @param { number } x
+  // @param { number } y
+  // @param { T } val
+  set(x, y, val) {
+    this._matrix[y][x] = val;
+  }
+
+  // @return { string }
+  toString() {
+    const rowSeparator = '\n';
+    const itemSeparator = ' ';
+    return this._matrix
+      .map((row) => row.join(itemSeparator))
+      .join(rowSeparator);
+  }
 
 }
 
