@@ -30,7 +30,18 @@ Grid Runner is a minimalist and challenging puzzle game created by Dillon Drenze
 
 
 
+## Abstract
 
+Cell
+- type: CellType
+
+CellType = 'Start' | 'Finish' | 'Wall' | 'Touched' | 'Untouched' ( | 'Player')
+
+Game
+- `static` generateFromString(string): Game
+- Game(Matrix<Cell>)
+- touch(x: number, y: number): Cell
+- \_is
 
 ## Node Version
 Everything written for version 2 was written with Node version `7.9.0`. This isn't to say that it can't be run on a lower version, I just haven't verified that it works on other versions :)
