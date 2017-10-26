@@ -5,8 +5,10 @@
 
 
 
-
-var gridrunner = function(opts) {
+// The exported function
+// @param opts an options object used to configure the grid in a specific way
+// @returns Gridrunner object with all the data and functions needed to play the game
+function gridrunner(opts) {
   return {
     CellTypeEnum,
     grid: [],

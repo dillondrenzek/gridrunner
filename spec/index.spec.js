@@ -1,4 +1,5 @@
-let gridrunner = require('../index.js');
+let helpers = require('./helpers');
+let gridrunner = require('../index');
 
 
 describe('Gridrunner', function() {
@@ -19,25 +20,71 @@ describe('Gridrunner', function() {
 
 
 
-  describe('instance', function() {
+  describe('instance created with no options', function() {
 
     let instance;
-
-    // Helper: expects a property on instance
-    const expectProp = (propName) => {
-      return it(propName, function() {
-        expect(instance.hasOwnProperty(propName)).toBe(true);
-      });
-    }
 
     beforeEach(function() {
       instance = gridrunner();
     });
 
     describe('should have the property:', function() {
-      expectProp('grid');
-      expectProp('player');
-      expectProp('CellTypeEnum');
+      it('grid', function() {
+        expect(instance.hasOwnProperty('grid')).toBe(true);
+      });
+      it('player', function() {
+        expect(instance.hasOwnProperty('player')).toBe(true);
+      });
+      it('CellTypeEnum', function() {
+        expect(instance.hasOwnProperty('CellTypeEnum')).toBe(true);
+      });
     });
   });
+
+
+
+
+
+
+  describe('instance created with valid options object', function() {
+
+    let instance, opts;
+
+
+
+    beforeEach(function() {
+      opts = {
+        start: [0,0],
+        finish: [3,0],
+        walls: [ [2,2], [3,2] ],
+        size: {
+          width: 4,
+          height: 3
+        }
+      };
+      instance = gridrunner(opts);
+    });
+
+    describe('should have the property:', function() {
+      it('grid', function() {
+        expect(instance.hasOwnProperty('grid')).toBe(true);
+      });
+      it('player', function() {
+        expect(instance.hasOwnProperty('player')).toBe(true);
+      });
+      it('CellTypeEnum', function() {
+        expect(instance.hasOwnProperty('CellTypeEnum')).toBe(true);
+      });
+    });
+
+
+
+
+  });
+
+
+
+
+
+
 });
