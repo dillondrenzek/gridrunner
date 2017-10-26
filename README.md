@@ -32,16 +32,33 @@ Grid Runner is a minimalist and challenging puzzle game created by Dillon Drenze
 
 ## Abstract
 
-Cell
-- type: CellType
+gridrunner - function that accepts an options object
+  - has properties:
+    - CellTypeEnum
+      - full:
+        - Start : 'Start'
+        - Finish : 'Finish'
+        - Touched : 'Touched'
+        - Untouched : 'Untouched'
+        - Wall : 'Wall'
+      - types: ['Start', 'Finish', 'Touched', 'Untouched', 'Wall']
+      - shorthand: { S: Start, F: Finish, T: Touched, U: Untouched, W: Wall }
+      - fromShorthand(x: string): CellType
+  - options:
+    - start: number[2]
+    - end: number[2]
+    - walls: Array<number[2]>
+  - returns Gridrunner instance:
+    - grid: Cell[][]
+      - type: CellType
+    - player: number[2]
+    - moveUp(): boolean
+    - moveDown(): boolean
+    - moveLeft(): boolean
+    - moveRight(): boolean
+    - checkWin(): boolean
 
-CellType = 'Start' | 'Finish' | 'Wall' | 'Touched' | 'Untouched' ( | 'Player')
 
-Game
-- `static` generateFromString(string): Game
-- Game(Matrix<Cell>)
-- touch(x: number, y: number): Cell
-- \_is
 
 ## Node Version
 Everything written for version 2 was written with Node version `7.9.0`. This isn't to say that it can't be run on a lower version, I just haven't verified that it works on other versions :)
