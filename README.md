@@ -60,5 +60,11 @@ gridrunner - function that accepts an options object
 
 
 
+## Project
+
+### Versioning
+Currently, in the alpha stages, breaking changes should increment the alpha version.
+
+
 ## Node Version
 Everything written for version 2 was written with Node version `7.9.0`. This isn't to say that it can't be run on a lower version, I just haven't verified that it works on other versions :)

@@ -1,6 +1,6 @@
 {
   "name": "gridrunner",
-  "version": "2.0.0-alpha.0",
+  "version": "2.0.0-alpha.1",
   "description": "Grid Runner is a minimalist and challenging puzzle game created by Dillon Drenzek and Logan McCaul for Digital Media 2. The goal of the game is to make it from the start to the finish after touching every tile on the grid exactly once. The Green tiles are the start, the Orange tiles are touched, the Blue tiles are Walls, the White tiles are untouched, and finally the Pink tile is the finish. Use the arrow keys to move. If you get stuck, press Enter to reload.",
   "main": "index.js",
   "scripts": {
