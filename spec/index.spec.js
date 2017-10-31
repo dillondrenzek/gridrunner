@@ -22,7 +22,7 @@ const equalPositions = (p1, p2) => {
 const isGridCellAtPostionOfType = (grid, position, cellType) => {
   if (!isPosition(position)) throw new Error('Need a valid position.');
   if (!gridrunner.CellTypeEnum.isCellType(cellType)) throw new Error('Need a valid CellTypeEnum type');
-  // return grid[position[0]][position[1]] ===
+  return grid[position[1]][position[0]] === cellType;
 };
 
 
@@ -51,19 +51,30 @@ describe('Gridrunner', function() {
 
   describe('instances', function() {
 
-    let instance;
+    let instance, opts;
+
+    const itHasProp = (propName) => {
+      it(propName, function() {
+        expect(instance.hasOwnProperty(propName)).toBe(true);
+      });
+    };
 
     beforeEach(function() {
-      instance = gridrunner.gridrunner();
+      opts = {
+          start: [0,0],
+          finish: [3,0],
+          walls: [ [2,2], [3,2] ],
+          width: 4,
+          height: 3
+        };
+      instance = gridrunner.gridrunner(opts);
     });
 
     describe('should have the property:', function() {
-      it('grid', function() {
-        expect(instance.hasOwnProperty('grid')).toBe(true);
-      });
-      it('player', function() {
-        expect(instance.hasOwnProperty('player')).toBe(true);
-      });
+      itHasProp('grid');
+      itHasProp('player');
+      itHasProp('width');
+      itHasProp('height');
     });
   });
 
@@ -73,15 +84,22 @@ describe('Gridrunner', function() {
 
   describe('instance created with valid options object', function() {
 
+
     const valid_opts = {
         start: [0,0],
         finish: [3,0],
         walls: [ [2,2], [3,2] ],
-        size: {
-          width: 4,
-          height: 3
-        }
+        width: 4,
+        height: 3
       };
+
+    let game, grid, opts;
+
+    beforeEach(function() {
+      opts = valid_opts;
+      game = gridrunner.gridrunner(opts);
+      grid = game.grid;
+    });
 
     it('should not throw', function() {
       expect(() => gridrunner.gridrunner(valid_opts)).not.toThrow();
@@ -93,14 +111,15 @@ describe('Gridrunner', function() {
       expect(_equalPositions).toBe(true);
     });
 
-    describe('should correctly place tiles on the grid:', function() {
-      let game, grid, opts;
+    it('should have the correct width', function() {
+      expect(game.width()).toEqual(opts.width);
+    });
 
-      beforeEach(function() {
-        opts = valid_opts;
-        game = gridrunner.gridrunner(opts);
-        grid = game.grid;
-      });
+    it('should have the correct height', function() {
+      expect(game.height()).toEqual(opts.height);
+    });
+
+    describe('should correctly place tiles on the grid:', function() {
 
       it('Start', function() {
         let position = opts.start;
@@ -132,30 +151,18 @@ describe('Gridrunner', function() {
 
 
 
-  xdescribe('instance created with invalid input', function() {
+  describe('instance created with invalid config objects:', function() {
 
-    let instance, opts;
+    const itShouldThrow = (desc, test_opts) => {
+      it(desc, function() {
+        expect(() => gridrunner.gridrunner(test_opts)).toThrow();
+      });
+    };
 
-    beforeEach(function() {
-      opts = {
-        start: [0,0],
-        finish: [3,0],
-        walls: [ [2,2], [3,2] ],
-        size: {
-          width: 4,
-          height: 3
-        }
-      };
-      instance = gridrunner(opts);
-    });
-
-    describe('should throw when created with', function() {
-
-    });
+    itShouldThrow('falsy value', null);
+    itShouldThrow('non-object', 0);
+    itShouldThrow('blank object', {});
 
   });
-
-
-
 
 });
