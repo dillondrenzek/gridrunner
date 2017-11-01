@@ -27,13 +27,25 @@ function grid(config) {
 
   return Object.assign(function() {
     return _matrix;
-  }, {
-    getCell: function(pos) {},
-    setCell: function(pos, cellType) {},
-    width: () => getMatrixWidth(_matrix),
-    height: () => getMatrixHeight(_matrix)
-  });
+  }, _grid(_matrix));
 }
+
+function _grid(mat) {
+  return {
+    getCell: function(pos) { return matrix_js(mat)(pos[1], pos[0]); },
+    setCell: function(pos) {
+      return {
+        to: function(cellType) {
+          let _newMat = setMatrixPosition(mat, pos, cellType);
+          return _grid(_newMat);
+        }
+      }
+    },
+    width: () => getMatrixWidth(mat),
+    height: () => getMatrixHeight(mat)
+  };
+}
+
 
 
 
