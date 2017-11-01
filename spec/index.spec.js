@@ -53,12 +53,6 @@ describe('Gridrunner', function() {
 
     let instance, opts;
 
-    const itHasProp = (propName) => {
-      it(propName, function() {
-        expect(instance.hasOwnProperty(propName)).toBe(true);
-      });
-    };
-
     beforeEach(function() {
       opts = {
           start: [0,0],
@@ -71,6 +65,12 @@ describe('Gridrunner', function() {
     });
 
     describe('should have the property:', function() {
+      const itHasProp = (propName) => {
+        it(propName, function() {
+          expect(instance.hasOwnProperty(propName)).toBe(true);
+        });
+      };
+
       itHasProp('grid');
       itHasProp('player');
       itHasProp('width');
@@ -98,16 +98,15 @@ describe('Gridrunner', function() {
     beforeEach(function() {
       opts = valid_opts;
       game = gridrunner.gridrunner(opts);
-      grid = game.grid;
+      grid = game.grid();
     });
 
     it('should not throw', function() {
-      expect(() => gridrunner.gridrunner(valid_opts)).not.toThrow();
+      expect(() => gridrunner.gridrunner(opts)).not.toThrow();
     });
 
     it('should set player\'s position to equal the Start position', function() {
-      const g = gridrunner.gridrunner(valid_opts);
-      const _equalPositions = equalPositions(g.player, valid_opts.start);
+      const _equalPositions = equalPositions(game.player, opts.start);
       expect(_equalPositions).toBe(true);
     });
 
