@@ -11,35 +11,31 @@ const matrix_js = require('matrix-js'),
 // @return { Grid }
 function grid(config) {
 
-  let _matrix = seedMatrix(config.width, config.height, Untouched);
-  const { start, finish, walls } = config;
+  // Unwind config object
+  const { width, height, seedValue } = config;
 
-  // set wall positions
-  walls.forEach((pos) => {
-    _matrix = setMatrixPosition(_matrix, pos, Wall);
-  });
+  // [UNTESTED]
+  // throw if
+  // - no width or height
+  if (!width) throw new Error('Grid must have a width.');
+  if (!height) throw new Error('Grid must have a height.');
 
-  // set start position
-  _matrix = setMatrixPosition(_matrix, start, Start);
+  // generate two-dimensional matrix
+  let _matrix = seedMatrix(width, height, seedValue);
 
-  // set finish position
-  _matrix = setMatrixPosition(_matrix, finish, Finish);
 
   return Object.assign(function() {
     return _matrix;
-  }, _grid(_matrix));
+  }, {
+    getCell: (pos) => getMatrixPosition(_matrix, pos),
+    setCell: (pos) => ({
+      to: (cellType) => _grid(setMatrixPosition(_matrix, pos, cellType))
+    }),
+    width: () => getMatrixSize(_matrix).width,
+    height: () => getMatrixSize(_matrix).height
+  });
 }
 
-function _grid(mat) {
-  return {
-    getCell: (pos) => getMatrixPosition(mat, pos),
-    setCell: (pos) => ({
-      to: (cellType) => _grid(setMatrixPosition(mat, pos, cellType))
-    }),
-    width: () => getMatrixSize(mat).width,
-    height: () => getMatrixSize(mat).height
-  };
-}
 
 
 
