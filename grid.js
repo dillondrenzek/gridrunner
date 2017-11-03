@@ -32,17 +32,12 @@ function grid(config) {
 
 function _grid(mat) {
   return {
-    getCell: function(pos) { return matrix_js(mat)(pos[1], pos[0]); },
-    setCell: function(pos) {
-      return {
-        to: function(cellType) {
-          let _newMat = setMatrixPosition(mat, pos, cellType);
-          return _grid(_newMat);
-        }
-      }
-    },
-    width: () => getMatrixWidth(mat),
-    height: () => getMatrixHeight(mat)
+    getCell: (pos) => getMatrixPosition(mat, pos),
+    setCell: (pos) => ({
+      to: (cellType) => _grid(setMatrixPosition(mat, pos, cellType))
+    }),
+    width: () => getMatrixSize(mat).width,
+    height: () => getMatrixSize(mat).height
   };
 }
 
@@ -50,26 +45,22 @@ function _grid(mat) {
 
 
 
-
 // Returns the width of a given grid
-// @returns { number }
-function getMatrixWidth(matrix) {
-  return matrix_js(matrix).size()[1];
+// @returns { width, height }
+function getMatrixSize(matrix) {
+  let size = matrix_js(matrix).size();
+  return {
+    width: size[1],
+    height: size[0]
+  };
 }
 
-
-
-
-// Returns the height of a given grid
-// @returns { number }
-function getMatrixHeight(matrix) {
-  return matrix_js(matrix).size()[0];
-}
 
 
 
 
 // Gets the position in the matrix
+// @returns { CellType }
 function getMatrixPosition(matrix, pos) {
   return matrix_js(matrix)(pos[1], pos[0]);
 }
@@ -77,10 +68,14 @@ function getMatrixPosition(matrix, pos) {
 
 
 
+
 // Sets the position in the matrix as value
+// @returns { CellType[][] }
 function setMatrixPosition(matrix, pos, value) {
   return matrix_js(matrix).set(pos[1], pos[0]).to(value);
 }
+
+
 
 
 
