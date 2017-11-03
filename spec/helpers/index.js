@@ -11,7 +11,7 @@ const equalPositions = (p1, p2) => {
   if (isPosition(p1) && isPosition(p2)) {
     return (p1[0] === p2[0]) && (p1[1] === p2[1]);
   } else {
-    throw new Error('Need two arrays with length of 2.');
+    throw new Error('Need two arrays with length of 2. Got:' + p1 + ' ' + p2);
   }
 };
 

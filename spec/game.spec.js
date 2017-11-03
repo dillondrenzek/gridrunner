@@ -21,8 +21,8 @@ describe('Game', function() {
   });
 
 
-
-  describe('maintains game state', function() {
+  // PASSING
+  describe('state -', function() {
 
     let getState, playerPos, grid;
 
@@ -32,7 +32,7 @@ describe('Game', function() {
       grid = getState().grid;
     });
 
-    it('should return a function that returns the state', function() {
+    it('should be returned when calling the game function', function() {
       expect(getState).toBeDefined();
     });
 
@@ -77,6 +77,106 @@ describe('Game', function() {
           }
         });
       });
+
+    });
+
+  });
+
+
+
+
+
+  describe('player movement -', function() {
+
+    describe('player should not move if player tries to move to a Wall cell', function() {
+
+      let prePos;
+
+      beforeEach(function() {
+        // player surrounded by walls
+        config = {
+          start: [1,1],
+          finish: [0,0],
+          walls: [ [0,1], [1,0], [1,2], [2,1] ],
+          width: 3,
+          height: 3
+        }
+
+        game = game_module(config);
+
+        prePos = game().player;
+      });
+
+      it('up', function() {
+        let postPos = (game.moveUp())().player;
+        expect(helpers.equalPositions(prePos, postPos)).toBe(true);
+      });
+
+      it('down', function() {
+        let postPos = (game.moveDown())().player;
+        expect(helpers.equalPositions(prePos, postPos)).toBe(true);
+      });
+
+      it('left', function() {
+        let postPos = (game.moveLeft())().player;
+        expect(helpers.equalPositions(prePos, postPos)).toBe(true);
+      });
+
+      it('right', function() {
+        let postPos = (game.moveRight())().player;
+        expect(helpers.equalPositions(prePos, postPos)).toBe(true);
+      });
+
+
+    });
+
+
+    describe('if a Wall isn\'t present', function() {
+
+      let prePos;
+
+      beforeEach(function() {
+        config = {
+          start: [1,1],
+          finish: [0,0],
+          walls: [ ],
+          width: 3,
+          height: 3
+        };
+
+        game = game_module(config);
+        prePos = game().player;
+      });
+
+
+      it('Up', function() {
+        let expected = [ prePos[0], prePos[1] + 1];
+        game = game.moveUp();
+        let actual = game().player;
+        expect(helpers.equalPositions(actual, expected)).toBe(true);
+      });
+      it('Down', function() {
+        let expected = [ prePos[0], prePos[1] - 1];
+        game = game.moveDown();
+        let actual = game().player;
+        expect(helpers.equalPositions(actual, expected)).toBe(true);
+      });
+      it('Left', function() {
+        let expected = [ prePos[0] - 1, prePos[1]];
+        game = game.moveLeft();
+        let actual = game().player;
+        expect(helpers.equalPositions(actual, expected)).toBe(true);
+      });
+      it('Right', function() {
+        let expected = [ prePos[0] + 1, prePos[1]];
+        game = game.moveRight();
+        let actual = game().player;
+        expect(helpers.equalPositions(actual, expected)).toBe(true);
+      });
+
+    });
+
+    it('unless a wall is present',function() {
 
     });
 

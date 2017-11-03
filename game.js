@@ -16,16 +16,16 @@ function game(config) {
 
 
 function _game(state) {
-  return (function() {
+  // return (function() {
     return Object.assign(function() {
       return state;
     }, {
-      moveUp: () => movePlayer(state, 'up'),
-      moveDown: () => movePlayer(state, 'down'),
-      moveLeft: () => movePlayer(state, 'left'),
-      moveRight: () => movePlayer(state, 'right')
+      moveUp: () => _game(movePlayer(state, 'up')),
+      moveDown: () => _game(movePlayer(state, 'down')),
+      moveLeft: () => _game(movePlayer(state, 'left')),
+      moveRight: () => _game(movePlayer(state, 'right'))
     });
-  })();
+  // })();
 }
 
 
@@ -36,14 +36,11 @@ function _game(state) {
 function getConfiguredGridState(config) {
 
   // initialize new grid
-  let _grid = grid({
+  const _grid = grid({
     width: config.width,
     height: config.height,
     seedValue: Untouched
-  });
-
-  // set special cells
-  _grid = _grid.setCell(config.start).to(Start)
+  }).setCell(config.start).to(Start)
     .setCell(config.finish).to(Finish)
     .setCells(config.walls).to(Wall);
 
@@ -82,7 +79,7 @@ function movePlayer(state, dir) {
 
     case Untouched:
       // move player
-      state = setPlayerPosition(newPos);
+      state = setPlayerPosition(state, newPos);
       break;
 
     case Finish:
