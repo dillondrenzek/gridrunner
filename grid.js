@@ -23,16 +23,24 @@ function grid(config) {
   // generate two-dimensional matrix
   let _matrix = seedMatrix(width, height, seedValue);
 
+  return _grid(_matrix);
+}
 
+
+
+
+
+// Returns the grid object
+function _grid(mat) {
   return Object.assign(function() {
-    return _matrix;
+    return mat;
   }, {
-    getCell: (pos) => getMatrixPosition(_matrix, pos),
+    getCell: (pos) => getMatrixPosition(mat, pos),
     setCell: (pos) => ({
-      to: (cellType) => _grid(setMatrixPosition(_matrix, pos, cellType))
+      to: (cellType) => _grid(setMatrixPosition(mat, pos, cellType))
     }),
-    width: () => getMatrixSize(_matrix).width,
-    height: () => getMatrixSize(_matrix).height
+    width: () => getMatrixSize(mat).width,
+    height: () => getMatrixSize(mat).height
   });
 }
 
