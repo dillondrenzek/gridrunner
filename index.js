@@ -1,4 +1,4 @@
-const grid = require('./grid'),
+const game = require('./game'),
   CellTypeEnum = require('./cell-type');
 
 
@@ -20,19 +20,9 @@ function gridrunner(config) {
   // throw error if invalid config object
   throwInvalidConfig(config);
 
-  // two-dimensional matrix that holds the state of each cell
-  let _grid = grid(config);
-
-  // array of length 2, index 0 = x-coordinate, index 1 = y-coordinate
-  let player = config['start'].slice();
-
-  return {
-    grid: _grid,
-    player,
-    width: () => _grid.width(),
-    height: () => _grid.height()
-  };
+  return game(config);
 };
+
 
 
 module.exports = {gridrunner, CellTypeEnum};
